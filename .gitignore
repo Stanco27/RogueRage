@@ -1,0 +1,42 @@
+# =============== Unity Generated Files & Folders ===============
+# Exclude folders that contain local, cached, or temporary data.
+
+/Library/
+/Temp/
+/Obj/
+/Build/
+/Logs/
+/UserSettings/
+
+# =============== Visual Studio / IDE Files ===============
+# Exclude solution files and IDE configuration that are regenerated locally.
+
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.meta
+*.opendb
+*.VC.db
+
+# =============== Asset Imports & Packages ===============
+# Exclude files that are generated when assets are imported.
+
+# Asset Store, downloaded assets and packages.
+/Assets/AssetStoreTools/
+/Assets/StreamingAssets/
+/Assets/External/
+
+# Ignore auto-generated files in Packages
+/Packages/manifest.json.meta
+/Packages/packages-lock.json
+
+# =============== MacOS Specific Files ===============
+
+.DS_Store

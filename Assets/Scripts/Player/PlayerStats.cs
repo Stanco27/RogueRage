@@ -19,6 +19,13 @@ public class PlayerStats : MonoBehaviour
     public float currentMaxHealth;
     public float currentHealth;
 
+    [Header("Currency & Experience")]
+    public float currentCurrency = 0.00f;
+    public float currentExperience = 0.00f;
+    private float expMultiplier = 1.0f;
+    private float currencyMultiplier = 1.0f;
+    public float collectionRadius = 1.0f;
+
     void Awake()
     {
         currentMoveSpeed = baseMoveSpeed;
@@ -26,5 +33,19 @@ public class PlayerStats : MonoBehaviour
 
         currentMaxHealth = baseMaxHealth;
         currentHealth = currentMaxHealth;
+    }
+
+    public void AddCurrency(int amount)
+    {
+        float totalAmount = amount * currencyMultiplier;
+        currentCurrency += totalAmount;
+        Debug.Log($"Gained {totalAmount} Gold! Total Gold: {currentCurrency}");
+    }
+
+    public void AddExperience(int amount)
+    {
+        float totalAmount = amount * expMultiplier;
+        currentExperience += totalAmount;
+        Debug.Log($"Gained {totalAmount} EXP! Total EXP: {currentExperience}");
     }
 }

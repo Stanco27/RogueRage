@@ -20,7 +20,6 @@ public abstract class Weapon : MonoBehaviour
 
         if (Time.time < stats.nextReloadTime)
         {
-            // ...
             return;
         }
 

@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     public float shakeIntensity = 0.5f;
     public float shakeDuration = 0.1f;
 
+    [Header("Collection Settings")]
+    public LayerMask collectibleLayer;
+
     // =======================================================================
     // PRIVATE STATE VARIABLES
     // =======================================================================
@@ -113,6 +116,7 @@ public class PlayerController : MonoBehaviour
         {
             rangedManager.CheckAndFireManualWeapon();
         }
+        HandleCoinCollection();
     }
 
     void LateUpdate()
@@ -230,6 +234,25 @@ public class PlayerController : MonoBehaviour
             playerVelocity.z += knockbackVelocity.z;
 
             knockbackTimer -= Time.deltaTime;
+        }
+    }
+
+    private void HandleCoinCollection()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(
+            transform.position,
+            playerStats.collectionRadius,
+            collectibleLayer
+        );
+
+        foreach (var hitCollider in hitColliders)
+        {
+            Coin coinComponent = hitCollider.GetComponent<Coin>();
+
+            if (coinComponent != null)
+            {
+                coinComponent.Magentize(gameObject);
+            }
         }
     }
 }

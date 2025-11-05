@@ -23,6 +23,9 @@ public class EnemyHealth : MonoBehaviour
     private Coroutine flashCoroutine;
     private Coroutine shrinkCoroutine;
 
+    [Header("Experience Drop")]
+    public GameObject expDropPrefab;
+
     void Awake()
     {
         currentHealth = maxHealth;
@@ -52,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            DropExp();
         }
     }
 
@@ -98,5 +102,11 @@ public class EnemyHealth : MonoBehaviour
 
         transform.localScale = Vector3.zero;
         Destroy(gameObject);
+    }
+
+    private void DropExp()
+    {
+        Debug.Log(gameObject.name + " dropped experience points.");
+        Instantiate(expDropPrefab, transform.position, Quaternion.identity);
     }
 }

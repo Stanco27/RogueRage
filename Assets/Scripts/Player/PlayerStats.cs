@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -19,12 +20,18 @@ public class PlayerStats : MonoBehaviour
     public float currentMaxHealth;
     public float currentHealth;
 
+    public int killCount = 0;
+
     [Header("Currency & Experience")]
     public float currentCurrency = 0.00f;
     public float currentExperience = 0.00f;
     private float expMultiplier = 1.0f;
     private float currencyMultiplier = 1.0f;
     public float collectionRadius = 1.0f;
+
+    public UnityEvent<float> OnCurrencyChanged;
+    public UnityEvent<float> OnExperienceChanged;
+    public UnityEvent<int> OnKillsChanged;
 
     void Awake()
     {
@@ -39,6 +46,7 @@ public class PlayerStats : MonoBehaviour
     {
         float totalAmount = amount * currencyMultiplier;
         currentCurrency += totalAmount;
+        OnCurrencyChanged?.Invoke(currentCurrency);
         Debug.Log($"Gained {totalAmount} Gold! Total Gold: {currentCurrency}");
     }
 
@@ -47,5 +55,12 @@ public class PlayerStats : MonoBehaviour
         float totalAmount = amount * expMultiplier;
         currentExperience += totalAmount;
         Debug.Log($"Gained {totalAmount} EXP! Total EXP: {currentExperience}");
+    }
+
+    public void AddKill()
+    {
+        killCount += 1;
+        OnKillsChanged?.Invoke(killCount);
+        Debug.Log($"Total Kills: {killCount}");
     }
 }

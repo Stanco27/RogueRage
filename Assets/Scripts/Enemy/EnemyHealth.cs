@@ -26,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
     [Header("Experience Drop")]
     public GameObject expDropPrefab;
 
+    private PlayerStats playerStats;
+
     void Awake()
     {
         currentHealth = maxHealth;
@@ -34,6 +36,12 @@ public class EnemyHealth : MonoBehaviour
         {
             originalColor = targetRenderer.material.color;
         }
+    }
+
+    void Start()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        playerStats = player.GetComponent<PlayerStats>();
     }
 
     public void TakeDamage(float damageAmount, Vector3 damageSourcePosition)
@@ -55,7 +63,6 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-            DropExp();
         }
     }
 
@@ -71,6 +78,12 @@ public class EnemyHealth : MonoBehaviour
     {
         Debug.Log(gameObject.name + " has died!");
         OnDeath?.Invoke();
+
+        DropExp();
+        if (playerStats != null)
+        {
+            playerStats.AddKill();
+        }
 
         if (targetRenderer != null)
         {
